@@ -10,7 +10,6 @@ const app = express()
 const CHEMICUM_URL = 'https://messi.hyyravintolat.fi/publicapi/restaurant/10'
 
 const matchDate = (day) => {
-  // console.log(day)
   const date = new Date()
   const tDate = date.getDate()
   const tMonth = date.getMonth() + 1
@@ -19,7 +18,7 @@ const matchDate = (day) => {
 }
 
 app.get('/', (_req, res) => {
-  res.send('hello world')
+  res.send('Hello, world!')
 })
 
 app.get('/hello', (_req, res) => {
