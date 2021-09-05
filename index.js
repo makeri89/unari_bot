@@ -12,7 +12,7 @@ const CHEMICUM_URL = 'https://messi.hyyravintolat.fi/publicapi/restaurant/10'
 const matchDate = (day) => {
   // console.log(day)
   const date = new Date()
-  const tDate = date.getDate()
+  const tDate = date.getDate() + 1
   const tMonth = date.getMonth() + 1
   const splitDay = day.date.split(' ')[1].split('.')
   return tDate == Number(splitDay[0]) && tMonth == Number(splitDay[1])
