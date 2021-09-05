@@ -30,7 +30,7 @@ app.get('/api/chemicum', (_req, res) => {
       const date = todaysMenu[0].date.split(' ')[1]
       let message = 'Chemicum ' + date + '.:\n'
       foodNames.map(foodName => message = message + foodName + '\n')
-      bot.sendMessage('1137434810', message)
+      bot.sendMessage(process.env.CONVERSATION_ID, message)
     })
   res.send('hello')
 })
