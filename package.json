@@ -1,0 +1,22 @@
+{
+  "name": "unari_bot",
+  "version": "1.0.0",
+  "description": "A telegram bot for sending the days menu for users",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "Markus Kaihola",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.3",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "telegraf": "^4.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
