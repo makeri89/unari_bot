@@ -21,7 +21,7 @@ app.get('/', (_req, res) => {
   res.send('Hello, world!')
 })
 
-app.get('/hello', (_req, res) => {
+app.get('/api/chemicum', (_req, res) => {
   axios
     .get(CHEMICUM_URL)
     .then(({ data }) => {
