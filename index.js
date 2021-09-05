@@ -18,6 +18,10 @@ const matchDate = (day) => {
   return tDate == Number(splitDay[0]) && tMonth == Number(splitDay[1])
 }
 
+app.get('/', (_req, res) => {
+  res.send('hello world')
+})
+
 app.get('/hello', (_req, res) => {
   axios
     .get(CHEMICUM_URL)
