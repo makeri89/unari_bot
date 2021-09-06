@@ -3,7 +3,7 @@ name: Keep Heroku app running
 on:
   push:
     branches:
-      - main
+      - master
   schedule:
     - cron: '*/15 * * * *'
 
