@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { Telegraf } = require('telegraf')
+const { Telegraf, Telegram } = require('telegraf')
 const express = require('express')
 const axios = require('axios')
 
@@ -173,19 +173,21 @@ bot.command('viikuna', (ctx) => {
 
 bot.launch()
 
+const automation_bot = new Telegram(process.env.BOT_TOKEN)
+
 app.get('/', (_req, res) => {
   res.send('Hello, world!')
 })
 
-// app.get('/api/chemicum', (_req, res) => {
-//   let foodNames
-//   axios
-//     .get(CHEMICUM_URL)
-//     .then(({ data }) => {
-//       const message = handleData(data, 'Chemicum')
-//     })
-//     .then(() => res.send(foodNames))
-// })
+app.get('/api/chemicum', (_req, res) => {
+  axios
+    .get(CHEMICUM_URL)
+    .then(({ data }) => {
+      const message = handleData(data, 'Chemicum')
+      automation_bot.sendMessage(process.env.CONVERSATION_ID, message)
+    })
+    .then(() => res.send(foodNames))
+})
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
