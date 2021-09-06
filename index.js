@@ -1,11 +1,11 @@
 require('dotenv').config()
 const { Telegraf } = require('telegraf')
-// const express = require('express')
+const express = require('express')
 const axios = require('axios')
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
-// const app = express()
+const app = express()
 const BASE_URL = 'https://messi.hyyravintolat.fi/publicapi/restaurant/'
 const METSATALO_URL = BASE_URL + '1'
 const OLIVIA_URL = BASE_URL + '2'
@@ -173,9 +173,9 @@ bot.command('viikuna', (ctx) => {
 
 bot.launch()
 
-// app.get('/', (_req, res) => {
-//   res.send('Hello, world!')
-// })
+app.get('/', (_req, res) => {
+  res.send('Hello, world!')
+})
 
 // app.get('/api/chemicum', (_req, res) => {
 //   let foodNames
@@ -187,7 +187,7 @@ bot.launch()
 //     .then(() => res.send(foodNames))
 // })
 
-// const PORT = process.env.PORT || 3000
-// app.listen(PORT, () => {
-//   console.log('Working')
-// })
+const PORT = process.env.PORT || 3000
+app.listen(PORT, () => {
+  console.log('Working')
+})
