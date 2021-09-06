@@ -1,6 +1,9 @@
 name: Keep Heroku app running
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: '*/15 * * * *'
 
