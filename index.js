@@ -1,5 +1,6 @@
 require('dotenv').config()
 const { Telegraf, Telegram } = require('telegraf')
+// const { ParseMode } = require('telegram')
 const express = require('express')
 const axios = require('axios')
 
@@ -31,47 +32,49 @@ const matchDate = (day) => {
 }
 
 const buildMessage = (restaurant, foodNames, date) => {
-  let message = restaurant + ' ' + date + '.\n\n'
-  foodNames.map(foodName => message = message + foodName + '\n')
+  let message = `*${restaurant} ${date}\\.*\n\n`
+  foodNames.map(foodName => message = message + foodName.replace('.','\\.').replace('-','\\-') + '\n')
   return message
 }
 
 const handleData = (data, restaurant) => {
   const todaysMenu = data.data.filter(matchDate)
   foodNames = todaysMenu[0].data.map(item => item.name)
-  const date = todaysMenu[0].date.split(' ')[1]
-  const message = buildMessage(restaurant, foodNames, date)
+  const date = todaysMenu[0].date.split(' ')[1].split('.')
+  const parsedDate = date[0] + '\\.' + date[1]
+  const message = buildMessage(restaurant, foodNames, parsedDate)
   return message
 }
 
 const usage = 'I can tell you todays menu for some of the Unicafe ' +
-              'restaurants in Helsinki\n\n' +
-              'Available Unicafes are:\n\n' + 
-              '/metsatalo - Metsätalo\n' + 
-              '/olivia - Olivia\n' + 
-              '/cafe_portaali - Cafe Portaali\n' +
-              '/pescovege - Pesco & Vege Topelias\n' +
-              '/kaivopiha - Kaivopiha\n' +
-              '/chemicum - Chemicum\n' + 
-              '/exactum - Exactum\n' +
-              '/physicum - Physicum\n' + 
-              '/meilahti - Meilahti\n' +
-              '/sockom - Soc&Kom\n' +
-              '/biokeskus - Biokeskus\n' +
-              '/korona - Korona\n' +
-              '/viikuna - Viikuna'
+              'restaurants in Helsinki\\.\n\n' +
+              '*Available Unicafes are:*\n\n' +
+              '\/metsatalo \\- Metsätalo\n' +
+              '\/olivia \\- Olivia\n' + 
+              '\/cafe\\_portaali \\- Cafe Portaali\n' +
+              '\/pescovege \\- Pesco & Vege Topelias\n' +
+              '\/kaivopiha \\- Kaivopiha\n' +
+              '\/chemicum \\- Chemicum\n' + 
+              '\/exactum \\- Exactum\n' +
+              '\/physicum \\- Physicum\n' + 
+              '\/meilahti \\- Meilahti\n' +
+              '\/sockom \\- Soc&Kom\n' +
+              '\/biokeskus \\- Biokeskus\n' +
+              '\/korona \\- Korona\n' +
+              '\/viikuna \\- Viikuna' +
+              '\n\n More info [here\\.](https://unicafe.fi)'
 
 
-bot.start((ctx) => ctx.reply('Welcome to unari_bot'))
+bot.start((ctx) => ctx.replyWithMarkdownV2('*Welcome*\nI am unari\\_bot\\.\n\n\/help to list my commands\\.'))
 
-bot.help((ctx) => ctx.reply(usage))
+bot.help((ctx) => ctx.replyWithMarkdownV2(usage))
 
 bot.command('metsatalo', (ctx) => {
   axios
     .get(METSATALO_URL)
     .then(({ data }) => {
       const message = handleData(data, 'Metsätalo')
-      ctx.reply(message)
+      ctx.replyWithMarkdownV2(message)
     })
 })
 bot.command('olivia', (ctx) => {
@@ -79,7 +82,7 @@ bot.command('olivia', (ctx) => {
     .get(OLIVIA_URL)
     .then(({ data }) => {
       const message = handleData(data, 'Olivia')
-      ctx.reply(message)
+      ctx.replyWithMarkdownV2(message)
     })
 })
 bot.command('cafe_portaali', (ctx) => {
@@ -95,7 +98,7 @@ bot.command('pescovege', (ctx) => {
     .get(PESCO_VEGE_URL)
     .then(({ data }) => {
       const message = handleData(data, 'Pesco & Vege Topelias')
-      ctx.reply(message)
+      ctx.replyWithMarkdownV2(message)
     })
 })
 bot.command('kaivopiha', (ctx) => {
@@ -103,7 +106,7 @@ bot.command('kaivopiha', (ctx) => {
     .get(KAIVOPIHA_URL)
     .then(({ data }) => {
       const message = handleData(data, 'Kaivopiha')
-      ctx.reply(message)
+      ctx.replyWithMarkdownV2(message)
     })
 })
 bot.command('chemicum', (ctx) => {
@@ -111,7 +114,7 @@ bot.command('chemicum', (ctx) => {
     .get(CHEMICUM_URL)
     .then(({ data }) => {
       const message = handleData(data, 'Chemicum')
-      ctx.reply(message)
+      ctx.replyWithMarkdownV2(message)
     })
 })
 bot.command('exactum', (ctx) => {
@@ -127,7 +130,7 @@ bot.command('physicum', (ctx) => {
     .get(PHYSICUM_URL)
     .then(({ data }) => {
       const message = handleData(data, 'Physicum')
-      ctx.reply(message)
+      ctx.replyWithMarkdownV2(message)
     })
 })
 bot.command('meilahti', (ctx) => {
@@ -135,7 +138,7 @@ bot.command('meilahti', (ctx) => {
     .get(MEILAHTI_URL)
     .then(({ data }) => {
       const message = handleData(data, 'Meilahti')
-      ctx.reply(message)
+      ctx.replyWithMarkdownV2(message)
     })
 })
 bot.command('sockom', (ctx) => {
@@ -143,7 +146,7 @@ bot.command('sockom', (ctx) => {
     .get(SOCKOM_URL)
     .then(({ data }) => {
       const message = handleData(data, 'Soc&Kom')
-      ctx.reply(message)
+      ctx.replyWithMarkdownV2(message)
     })
 })
 bot.command('biokeskus', (ctx) => {
@@ -151,7 +154,7 @@ bot.command('biokeskus', (ctx) => {
     .get(BIOKESKUS_URL)
     .then(({ data }) => {
       const message = handleData(data, 'Biokeskus')
-      ctx.reply(message)
+      ctx.replyWithMarkdownV2(message)
     })
 })
 bot.command('korona', (ctx) => {
@@ -159,7 +162,7 @@ bot.command('korona', (ctx) => {
     .get(KORONA_URL)
     .then(({ data }) => {
       const message = handleData(data, 'Korona')
-      ctx.reply(message)
+      ctx.replyWithMarkdownV2(message)
     })
 })
 bot.command('viikuna', (ctx) => {
@@ -167,7 +170,7 @@ bot.command('viikuna', (ctx) => {
     .get(VIIKUNA_URL)
     .then(({ data }) => {
       const message = handleData(data, 'Viikuna')
-      ctx.reply(message)
+      ctx.replyWithMarkdownV2(message)
     })
 })
 
