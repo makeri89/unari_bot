@@ -8,7 +8,7 @@ There is also an api endpoint that I use to send the menu of my favorite Unicafe
 
 ## Interacting with the bot
 
-You can find the bot on Telegram by searching @unari_bot. The command /help will tell you what to do after starting a conversation with it.
+You can find the bot on Telegram by searching [@unari_bot](https://t.me/unari_bot). The command `/help` will tell you what to do after starting a conversation with it.
 
 ## Usage
 
