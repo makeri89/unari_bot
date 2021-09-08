@@ -1,12 +1,12 @@
 require('dotenv').config()
 const { Telegraf, Telegram } = require('telegraf')
-// const { ParseMode } = require('telegram')
 const express = require('express')
 const axios = require('axios')
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
 const app = express()
+
 const BASE_URL = 'https://messi.hyyravintolat.fi/publicapi/restaurant/'
 const METSATALO_URL = BASE_URL + '1'
 const OLIVIA_URL = BASE_URL + '2'
@@ -31,9 +31,10 @@ const matchDate = (day) => {
   return tDate == Number(splitDay[0]) && tMonth == Number(splitDay[1])
 }
 
-const buildMessage = (restaurant, foodNames, date) => {
+const buildMessage = (restaurant, foodNames, date, openingTime, closingTime) => {
   let message = `*${restaurant} ${date}\\.*\n\n`
-  foodNames.map(foodName => message = message + foodName.replace('.','\\.').replace('-','\\-') + '\n')
+  message += `Avoinna ${openingTime}\\-${closingTime}\\.\n\n`
+  foodNames.map(foodName => message = message + foodName.replace('.','\\.').replace(/-/g,'\\-') + '\n')
   return message
 }
 
@@ -42,7 +43,10 @@ const handleData = (data, restaurant) => {
   foodNames = todaysMenu[0].data.map(item => item.name)
   const date = todaysMenu[0].date.split(' ')[1].split('.')
   const parsedDate = date[0] + '\\.' + date[1]
-  const message = buildMessage(restaurant, foodNames, parsedDate)
+  // console.log(data.information.business.regular[0].close)
+  const openingTime = data.information.business.regular[0].open
+  const closingTime = data.information.business.regular[0].close
+  const message = buildMessage(restaurant, foodNames, parsedDate, openingTime, closingTime)
   return message
 }
 
