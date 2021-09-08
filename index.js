@@ -43,7 +43,6 @@ const handleData = (data, restaurant) => {
   foodNames = todaysMenu[0].data.map(item => item.name)
   const date = todaysMenu[0].date.split(' ')[1].split('.')
   const parsedDate = date[0] + '\\.' + date[1]
-  // console.log(data.information.business.regular[0].close)
   const openingTime = data.information.business.regular[0].open
   const closingTime = data.information.business.regular[0].close
   const message = buildMessage(restaurant, foodNames, parsedDate, openingTime, closingTime)
