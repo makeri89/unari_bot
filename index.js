@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { Telegraf, Telegram } = require('telegraf')
+const { Telegraf } = require('telegraf')
 const express = require('express')
 const axios = require('axios')
 
@@ -21,7 +21,6 @@ const SOCKOM_URL = BASE_URL + '15'
 const BIOKESKUS_URL = BASE_URL + '16'
 const KORONA_URL = BASE_URL + '17'
 const VIIKUNA_URL = BASE_URL + '18'
-
 
 const matchDate = (day) => {
   const date = new Date()
@@ -179,8 +178,6 @@ bot.command('viikuna', (ctx) => {
 
 bot.launch()
 
-const automation_bot = new Telegram(process.env.BOT_TOKEN)
-
 app.get('/', (_req, res) => {
   res.send('Hello, world!')
 })
@@ -190,7 +187,7 @@ app.get('/api/chemicum', (_req, res) => {
     .get(CHEMICUM_URL)
     .then(({ data }) => {
       const message = handleData(data, 'Chemicum')
-      automation_bot.sendMessage(process.env.CONVERSATION_ID, message)
+      bot.telegram.sendMessage(process.env.CONVERSATION_ID, message, { parse_mode: 'MarkdownV2' })
     })
     .then(() => res.send(foodNames))
 })

@@ -4,7 +4,7 @@ This is a Telegram bot **unari_bot** that sends the days menu of certain Unicafe
 
 The bot is hosted on Heroku and runs on node.js with Telegraf.
 
-There is also an api endpoint that I use to send the menu of my favorite Unicafe to myself every morning. The endpoint uses a different implementation of the bot to send a message to certain conversation without user interaction.
+There is also an api endpoint that I use to send the menu of my favorite Unicafe to myself every morning. The endpoint uses the bot to send a message to a certain conversation without user interaction.
 
 ## Interacting with the bot
 
