@@ -92,7 +92,7 @@ bot.command('cafe_portaali', (ctx) => {
     .get(CAFE_PORTAALI_URL)
     .then(({ data }) => {
       const message = handleData(data, 'Cafe Portaali')
-      ctx.reply(message)
+      ctx.replyWithMarkdownV2(message)
     })
 })
 bot.command('pescovege', (ctx) => {
@@ -124,7 +124,7 @@ bot.command('exactum', (ctx) => {
     .get(EXACTUM_URL)
     .then(({ data }) => {
       const message = handleData(data, 'Exactum')
-      ctx.reply(message)
+      ctx.replyWithMarkdownV2(message)
     })
 })
 bot.command('physicum', (ctx) => {
