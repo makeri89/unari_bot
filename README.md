@@ -22,7 +22,7 @@ After environmental variables are set, you can run
 
 ### `npm start`
 
-or 
+or
 
 ### `npm run dev`
 

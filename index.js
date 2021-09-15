@@ -33,7 +33,7 @@ const matchDate = (day) => {
 const buildMessage = (restaurant, foodNames, date, openingTime, closingTime) => {
   let message = `*${restaurant} ${date}\\.*\n\n`
   message += `Avoinna ${openingTime}\\-${closingTime}\\.\n\n`
-  foodNames.map(foodName => message = message + foodName.replace('.','\\.').replace(/-/g,'\\-') + '\n')
+  foodNames.map(foodName => message = message + formatMessage(foodName) + '\n')
   return message
 }
 
@@ -47,6 +47,28 @@ const handleData = (data, restaurant) => {
   const message = buildMessage(restaurant, foodNames, parsedDate, openingTime, closingTime)
   return message
 }
+
+const formatMessage = (message) => {
+  return message
+    .replace(/_/g, "\\_")
+    .replace(/\*/g, "\\*")
+    .replace(/\[/g, "\\[")
+    .replace(/\]/g, "\\]")
+    .replace(/\(/g, "\\(")
+    .replace(/\)/g, "\\)")
+    .replace(/~/g, "\\~")
+    .replace(/`/g, "\\`")
+    .replace(/>/g, "\\>")
+    .replace(/#/g, "\\#")
+    .replace(/\+/g, "\\+")
+    .replace(/-/g, "\\-")
+    .replace(/=/g, "\\=")
+    .replace(/\|/g, "\\|")
+    .replace(/\{/g, "\\{")
+    .replace(/\}/g, "\\}")
+    .replace(/\./g, "\\.")
+    .replace(/!/g, "\\!");
+};
 
 const usage = 'I can tell you todays menu for some of the Unicafe ' +
               'restaurants in Helsinki\\.\n\n' +
