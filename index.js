@@ -214,6 +214,16 @@ app.get('/api/chemicum', (_req, res) => {
     .then(() => res.send(foodNames))
 })
 
+app.get('/api/exactum', (_req, res) => {
+  axios
+    .get(EXACTUM_URL)
+    .then(({ data }) => {
+      const message = handleData(data, 'Exactum')
+      bot.telegram.sendMessage(process.env.CONVERSATION_ID, message, { parse_mode: 'MarkdownV2' })
+    })
+    .then(() => res.send(foodNames))
+})
+
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
   console.log('Working')
