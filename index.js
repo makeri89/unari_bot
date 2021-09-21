@@ -39,7 +39,9 @@ const buildMessage = (restaurant, foodNames, date, openingTime, closingTime) => 
 
 const handleData = (data, restaurant) => {
   const todaysMenu = data.data.filter(matchDate)
+  // console.log(todaysMenu[0].data)
   foodNames = todaysMenu[0].data.map(item => item.name)
+  foodNames = foodNames.filter(item => !item.startsWith('Olemme avoinna'))
   const date = todaysMenu[0].date.split(' ')[1].split('.')
   const parsedDate = date[0] + '\\.' + date[1]
   const openingTime = data.information.business.regular[0].open
