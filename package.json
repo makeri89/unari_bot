@@ -12,9 +12,12 @@
   "author": "Markus Kaihola",
   "license": "ISC",
   "dependencies": {
+    "@grammyjs/menu": "^1.0.1",
     "axios": "^0.21.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "grammy": "^1.4.0",
+    "parse-mode": "^0.1.2",
     "telegraf": "^4.4.1",
     "telegram": "^1.8.10"
   },
