@@ -227,24 +227,26 @@ app.get('/', (_req, res) => {
   res.send('Hello, world!')
 })
 
-app.get('/api/chemicum', (_req, res) => {
-  axios
-    .get(CHEMICUM_URL)
-    .then(({ data }) => {
-      const message = handleData(data, 'Chemicum')
-      bot.telegram.sendMessage(process.env.CONVERSATION_ID, message, { parse_mode: 'MarkdownV2' })
-    })
-    .then(() => res.send(foodNames))
+app.get('/api/chemicum', async (_req, res) => {
+  const data = await fetchData(CHEMICUM_URL)
+  const message = handleData(data, 'Chemicum')
+  bot.api.sendMessage(
+    process.env.CONVERSATION_ID,
+    message,
+    { parse_mode: 'MarkdownV2' }
+  )
+  res.send('Data was sent to you on Telegram')
 })
 
-app.get('/api/exactum', (_req, res) => {
-  axios
-    .get(EXACTUM_URL)
-    .then(({ data }) => {
-      const message = handleData(data, 'Exactum')
-      bot.telegram.sendMessage(process.env.CONVERSATION_ID, message, { parse_mode: 'MarkdownV2' })
-    })
-    .then(() => res.send(foodNames))
+app.get('/api/exactum', async (_req, res) => {
+  const data = await fetchData(EXACTUM_URL)
+  const message = handleData(data, 'Exactum')
+  bot.api.sendMessage(
+    process.env.CONVERSATION_ID,
+    message,
+    { parse_mode: 'MarkdownV2' }
+  )
+  res.send('Data was sent to you on Telegram')
 })
 
 const PORT = process.env.PORT || 3000
