@@ -95,7 +95,7 @@ bot.command('viikuna', async (ctx) => {
 })
 
 bot.command('tomorrow', (ctx) => {
-  ctx.reply('This is a menu', { reply_markup: tomorrowMenu })
+  ctx.reply('See the menu for tomorrow in:', { reply_markup: tomorrowMenu })
 })
 
 bot.catch((error) => {
